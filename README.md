@@ -8,7 +8,7 @@ $ git clone https://github.com/bufgix/slave
 $ cd slave
 ```
 
-Slave, gerek executable dosya oluşturmada gerekse bağımlıklıları kurmada `pipenv` i kullanır. `pipenv` hakkında daha fazla bilgiye [buradan](https://realpython.com/pipenv-guide/) buradan ulaşabilirsiniz.
+Slave, gerek executable dosya oluşturmada gerekse bağımlıklıları kurmada `pipenv` i kullanır. `pipenv` hakkında daha fazla bilgiye [buradan](https://realpython.com/pipenv-guide/) ulaşabilirsiniz.
 
 `pipenv` i kurup, bağımlılıkları yükleyip, virtual env'e geçtikten sonra `bot.py` dosyasını açın. İçeriği aşağıdaki gibidir.
 ```python
