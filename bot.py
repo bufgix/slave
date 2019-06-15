@@ -7,8 +7,7 @@ config = {
     'boss_name': 'boss666',
     'bot_prefix': "SLAVEBOT"
 }
-
-BotBasic.read_concfig_from_dict(config)
+BotBasic.read_config_from_dict(config)
 
 ## Write custom commands here
 
