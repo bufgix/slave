@@ -1,6 +1,6 @@
 # SLAVE
 
-Slave, Python ile yazılmış özelleştirilebilir executable bot oluşturan bir yazılımdır. [IRC](https://tr.wikipedia.org/wiki/Internet_Relay_Chat) protokolü üzerinden yazılan botlar ile haberleşir.
+Slave, Python ile yazılmış özelleştirilebilir bot oluşturan bir yazılımdır. [IRC](https://tr.wikipedia.org/wiki/Internet_Relay_Chat) protokolü üzerinden, yazılan botlar ile haberleşir.
 
 ## Nasıl kullanılır
 ```bash
@@ -29,7 +29,7 @@ BotBasic.read_config_from_dict(config)
 
 BotBasic.start()
 ```
-Buradan sonra eğer botunuza özel komutlar eklemeyiyecekseniz executable dosyasının oluşturabilirsiniz. 
+Buradan sonra eğer botunuza özel komutlar eklemiyecekseniz executable dosyasını oluşturabilirsiniz. 
 
 ```bash
 (venv) $ python -m slave bot.py
