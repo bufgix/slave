@@ -45,3 +45,13 @@ def show_msg_with_tk(bot: Bot, args: List[str]):
 def vist_url(bot: Bot, args: List[str]):
     bot.send_text(f"Opening page... {args[1]}")
     webbrowser.open(args[1])
+
+@BotBasic.register('help', help_text="Help text of command -- Usage: $help <cmd>")
+def helper(bot: Bot, args: List[str]):
+    cmd_dict = bot.COMMAND_SET.get(args[1], None)
+    if cmd_dict is not None:
+        bot.send_text(cmd_dict['help_text'])
+    elif args[1] == '/all':
+        bot.send_command_help()
+    else:
+        bot.send_text("Command not found")
