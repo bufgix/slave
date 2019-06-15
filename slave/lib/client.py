@@ -47,7 +47,7 @@ class RepeatedTimer(object):
 class Bot:
     sock: socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-    def __init__(self, host: str = "chat.freenode.net", port: int = 6667, channel: str = "#slavebotpool", boss_name="bufgix", bot_prefix: str = 'SLAVEBOT'):
+    def __init__(self, host: str = "chat.freenode.net", port: int = 6667, channel: str = "#slavebotpool666", boss_name="bos666", bot_prefix: str = 'SLAVEBOT'):
         self.host = host
         self.port = port
         self.channel = channel
