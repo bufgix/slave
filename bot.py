@@ -11,9 +11,6 @@ config = {
 BotBasic.read_concfig_from_dict(config)
 
 ## Write custom commands here
-@BotBasic.register("ping")
-def pong(bot, args):
-    bot.send_text("Pong")
 
 
 BotBasic.start()
