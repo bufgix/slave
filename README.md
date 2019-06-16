@@ -1,6 +1,6 @@
 # SLAVE
 
-Slave, Python ile yazılmış özelleştirilebilir executable bot oluşturan bir yazılımdır. [IRC](https://tr.wikipedia.org/wiki/Internet_Relay_Chat) protokolü üzerinden yazılan botlar ile haberleşir.
+Slave, Python ile yazılmış özelleştirilebilir bot oluşturan bir yazılımdır. [IRC](https://tr.wikipedia.org/wiki/Internet_Relay_Chat) protokolü üzerinden, yazılan botlar ile haberleşir.
 
 ## Nasıl kullanılır
 ```bash
@@ -8,7 +8,7 @@ $ git clone https://github.com/bufgix/slave
 $ cd slave
 ```
 
-Slave, gerek executable dosya oluşturmada gerekse bağımlıklıları kurmada `pipenv` i kullanır. `pipenv` hakkında daha fazla bilgiye [buradan](https://realpython.com/pipenv-guide/) buradan ulaşabilirsiniz.
+Slave, gerek executable dosya oluşturmada gerekse bağımlıklıları kurmada `pipenv` i kullanır. `pipenv` hakkında daha fazla bilgiye [buradan](https://realpython.com/pipenv-guide/) ulaşabilirsiniz.
 
 `pipenv` i kurup, bağımlılıkları yükleyip, virtual env'e geçtikten sonra `bot.py` dosyasını açın. İçeriği aşağıdaki gibidir.
 ```python
@@ -29,7 +29,7 @@ BotBasic.read_config_from_dict(config)
 
 BotBasic.start()
 ```
-Buradan sonra eğer botunuza özel komutlar eklemeyiyecekseniz executable dosyasının oluşturabilirsiniz. 
+Buradan sonra eğer botunuza özel komutlar eklemiyecekseniz executable dosyasını oluşturabilirsiniz. 
 
 ```bash
 (venv) $ python -m slave bot.py
