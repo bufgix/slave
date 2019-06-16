@@ -1,5 +1,7 @@
 from typing import Any, List, Callable
 from threading import Timer
+from collections import OrderedDict
+from pathlib import Path
 import socket
 import re
 import secrets
@@ -47,17 +49,22 @@ class RepeatedTimer(object):
 class Bot:
     sock: socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-    def __init__(self, host: str = "chat.freenode.net", port: int = 6667, channel: str = "#slavebotpool666", boss_name="bos666", bot_prefix: str = 'SLAVEBOT'):
+    def __init__(self, host: str = "chat.freenode.net", port: int = 6667, channel: str = "#slavebotpool666", boss_name="bos666", bot_prefix: str = 'SLAVEBOT', bot_type='Undefined'):
         self.host = host
         self.port = port
         self.channel = channel
         self.boss_name = boss_name
         self.bot_prefix = bot_prefix
+        self.bot_type = bot_type
         self.bot_id = secrets.token_hex(3)
         self.bot_fullname = f"{self.bot_prefix}_{self.bot_id}"
         self.SERVER_STATUS = True
         self.COMMAND_SET = dict()
         self.ping_timer: RepeatedTimer = None
+        self.ROOT_PATH = Path("~").expanduser()
+
+    def use_other_bot_commands(self, other_bot:Any) -> None:
+        self.COMMAND_SET.update(other_bot.COMMAND_SET)
 
     def read_config_from_dict(self, config: dict) -> None:
         for key, value in config.items():
@@ -126,7 +133,7 @@ class Bot:
         logging.debug(f"Connected {self.host}")
 
     def send_command_help(self) -> None:
-        for cmdstr, cmd_stuff in self.COMMAND_SET.items():
+        for cmdstr, cmd_stuff in OrderedDict(sorted(self.COMMAND_SET.items(), key=lambda x: x[0])).items():
             self.send_text(f"{cmdstr}: {cmd_stuff['help_text']}")
 
     def connected_afer(self):

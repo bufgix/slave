@@ -1,4 +1,4 @@
-from slave.lib.bots import BotBasic
+from slave.lib.bots import BotV2
 
 config = {
     'host': 'chat.freenode.net',
@@ -7,9 +7,9 @@ config = {
     'boss_name': 'boss666',
     'bot_prefix': "SLAVEBOT"
 }
-BotBasic.read_config_from_dict(config)
+BotV2.read_config_from_dict(config)
 
 ## Write custom commands here
 
 
-BotBasic.start()
+BotV2.start()
