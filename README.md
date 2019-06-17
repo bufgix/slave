@@ -4,12 +4,10 @@ Slave, Python ile yazılmış özelleştirilebilir bot oluşturmaya yarayan bir 
 
 ## Yükleme
 ### Pip ile kurulum
-----
 ```bash
 $ pip install slave-irc
 ```
 ### Local kurulum
----
 ```bash
 $ git clone https://github.com/bufgix/slave
 $ cd slave
@@ -21,7 +19,6 @@ Slave, gerek executable dosya oluşturmada gerekse bağımlıklıları kurmada `
 
 ## Kullanım
 ### Basit bot oluşturma
----
 ```python
 # basic_bot.py
 
@@ -64,8 +61,9 @@ Oluşan `dist/` dizinini altında `basic_bot.exe` dosyası artık kullanıma haz
 
 `basic_bot.exe` yi çalıştırdıktan sonra 5-10 saniye içinde `config` de belirlediğiniz şekilde IRC'ye bağlanır.
 
+Buradan sonra `config` de belirlediğiniz `bos_name` ile aynı olarak IRC server ve channel'e girin. Ardından botlarınıza emir vermeye başlayabilirsiniz.
+
 ## Nasıl komut vereceksiniz
----
 Slave botlarına emir vermek için `$` ön eki getirilir.
 ```
 $info bfr24s
@@ -91,8 +89,6 @@ $visit /all https://google.com
 | help | Help text of command  |  `$help <bot_id> <cmd>` |
 
 
-
-Buradan sonra `config` de belirlediğiniz `bos_name` ile aynı olarak IRC server ve channel'e girin. Ardından botlarınıza emir vermeye başlayabilirsiniz.
 
 Botlarınızı her yerden yönetebilirsiniz
 * Web: [Kiwi](https://kiwiirc.com/nextclient/)
@@ -176,7 +172,7 @@ Im secret
 Don't read me
 ```
 
-![img](https://www.coogger.com/media/images/mr.PNG)
+![img](https://i.resimyukle.xyz/ybHK7z.png)
 
 Tabi dosyayı okumdadan önce var olup olmadığını kontrol etmek önemlidir. Eğer var olmayan bir dosyaya erişmeye çalışırsanız bot, serverla haberleşmeyi kesecektir.
 
@@ -190,8 +186,10 @@ from slave.lib.bots import BotBasic, BotV2
 BotBasic.use_other_bot_commands(BotV2)
 BotBasic.start()
 ```
+![img](https://i.resimyukle.xyz/05VUGy.png)
 
-![img](https://www.coogger.com/media/images/custom.PNG)
+Botunuzun hazır olduğunu düşünüyorsanız artık [çalıştırılabilir dosya](#çalıştırılabilir-dosya-oluşturma) yapabilirsiniz.
+
 
 ## LICENSE: [MIT](https://github.com/bufgix/slave/blob/master/LICENSE)
 
