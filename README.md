@@ -35,6 +35,7 @@ config = {
 BotV2.read_config_from_dict(config)
 BotV2.start()
 ```
+![img](https://www.coogger.com/media/images/05VUGy.png)
 
 `config` şunları içermelidir
 
