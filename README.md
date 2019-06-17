@@ -37,6 +37,7 @@ BotV2.start()
 ```
 
 `config` şunları içermelidir
+
 | Key | Value |
 |---|---|
 | `host` | IRC server (varsayılan `chat.freenode.net`) |
@@ -79,13 +80,14 @@ $visit /all https://google.com
 ```
 
 `BOtV2` nin sağladığı komutlar ve kullanımları aşağıdaki gibidir
+
 | Command |  Desc | Syntax  |
 |---|---|---|
-| quit  | Kill bot  | `$quit [/all | <bot_id>]`  |
-|  info |  Information of bot machine  | `$info [/all | <bot_id>]`  |
-| message | Message show with tkinter  |  `$message [/all | <bot_id>] <message> <msec>` |
-| visit  | Open url with webbroser  | `$visit [/all | <bot_id>] <url>` |
-| screenshot  | Take sceenshot and send your email(Only Gmail)  | `$screenshot [/all | <bot_id>] <email> <password>`|
+| quit  | Kill bot  | `$quit [/all \| <bot_id>]`  |
+|  info |  Information of bot machine  | `$info [/all \| <bot_id>]`  |
+| message | Message show with tkinter  |  `$message [/all \| <bot_id>] <message> <msec>` |
+| visit  | Open url with webbroser  | `$visit [/all \| <bot_id>] <url>` |
+| screenshot  | Take sceenshot and send your email(Only Gmail)  | `$screenshot [/all \| <bot_id>] <email> <password>`|
 | help | Help text of command  |  `$help <bot_id> <cmd>` |
 
 
