@@ -52,7 +52,7 @@ Slave, direkt olarak çalıştırabilir dosya oluşturmanıza olanak sağlar. Bu
 
 Yukarıda yazdığımız botu çalıştırılabilir dosya yapmak için:
 ```bash
-$ python slave basic_bot.py
+$ python -m slave basic_bot.py
 [i] Source: C:\Users\user\your_bot\basic_bot.py
 [i] Creating executable file...
 [*] Created executable file. Check C:\Users\user\path\your_bot\dist
