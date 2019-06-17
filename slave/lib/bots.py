@@ -32,12 +32,6 @@ def sys_info(bot: Bot, args: List[str] = None):
     bot.send_text(template)
 
 
-@BotBasic.register('visit', all=True, help_text="Open url with webbroser -- Usage: $visit [/all | <bot_id>] <url>")
-def vist_url(bot: Bot, args: List[str]):
-    bot.send_text(f"Opening page... {args[1]}")
-    webbrowser.open(args[1])
-
-
 @BotBasic.register('help', help_text="Help text of command -- Usage: $help <cmd>")
 def helper(bot: Bot, args: List[str]):
     cmd_dict = bot.COMMAND_SET.get(args[1], None)
@@ -50,6 +44,12 @@ def helper(bot: Bot, args: List[str]):
 
 
 ## BotV2 Commands ##
+
+@BotV2.register('visit', all=True, help_text="Open url with webbroser -- Usage: $visit [/all | <bot_id>] <url>")
+def vist_url(bot: Bot, args: List[str]):
+    bot.send_text(f"Opening page... {args[1]}")
+    webbrowser.open(args[1])
+
 
 @BotV2.register('message', all=True, help_text="Message show with tkinter -- Usage: $message [/all | <bot_id>] <message> <msec>")
 def show_msg_with_tk(bot: Bot, args: List[str]):
