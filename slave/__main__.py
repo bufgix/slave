@@ -4,7 +4,7 @@ import sys
 
 
 def create_executable(filename: str = 'bot.py'):
-    bot_source = pathlib.Path().cwd() / 'bot.py'
+    bot_source = pathlib.Path().cwd() / filename
     print(f"[i] Source: {bot_source}")
     print("[i] Creating executable file...")
     proc = Popen(['pyinstaller',
