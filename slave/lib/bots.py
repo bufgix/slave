@@ -113,7 +113,7 @@ def take_screenshot(bot: Bot, args: List[str]):
 
             bot.send_text(f'Screenshot send {email}')
         except smtplib.SMTPAuthenticationError as authex:
-            bot.send_text(f"Authentication problem: Wrong email adress or password")
+            bot.send_text(f"Authentication problem: Wrong email address or password")
         except Exception as generalex:
             bot.send_text(f"Problem occurred: {generalex}")
         

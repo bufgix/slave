@@ -7,7 +7,6 @@ import re
 import secrets
 import logging
 import platform
-import functools
 
 
 RE_PARSE_PRIVMSG = r"^:(?P<owner>\w+)!.+PRIVMSG\s+#(?P<channel>\w+)\s+:\$(?P<commandstr>.+)"
