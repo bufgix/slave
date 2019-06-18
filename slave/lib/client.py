@@ -143,10 +143,18 @@ class Bot:
 
         self.ping_timer = RepeatedTimer(60, self.pong)
 
-    def start(self):
-        self.connect()
-        self.connected_afer()
-        self.listen_forever()
+    def start(self, safe=False):
+        if safe:
+            try:
+                self.connect()
+                self.connected_afer()
+                self.listen_forever()
+            except Exception as e:
+                pass
+        else:
+            self.connect()
+            self.connected_afer()
+            self.listen_forever()
 
     def register(self, cmdstr, all=False, on_connect=False, help_text="No description given"):
         def wrap_register(func):
