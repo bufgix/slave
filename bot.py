@@ -10,10 +10,6 @@ config = {
 }
 BotInformation.read_config_from_dict(config)
 
-@BotInformation.register('test')
-def test(bot, args):
-    a = [1,2]
-    bot.send_text(str(a[3]))
 
 BotInformation.use_other_bot_commands(BotV2)
 BotInformation.start(safe=True)
