@@ -1,5 +1,5 @@
 from typing import Any, List, Callable
-from threading import Timer
+from threading import Timer, Thread
 from collections import OrderedDict
 from pathlib import Path
 import socket
@@ -7,6 +7,7 @@ import re
 import secrets
 import logging
 import platform
+import traceback
 
 
 RE_PARSE_PRIVMSG = r"^:(?P<owner>\w+)!.+PRIVMSG\s+#(?P<channel>\w+)\s+:\$(?P<commandstr>.+)"
@@ -74,6 +75,15 @@ class Bot:
 
     def join_channel(self):
         self.sock.send(send_bytes(f"JOIN {self.channel}\n"))
+
+    def send_text_thread(self, text: str):
+        def thread_send(text):
+            self.sock.send(send_bytes(f"PRIVMSG {self.channel} :{line}\n"))
+        for line in text.split('\n'):
+            th = Thread(target=thread_send, args=(line,))
+            th.start()
+        
+        del th
 
     def send_text(self, text: str):
         for line in text.split('\n'):
@@ -143,6 +153,10 @@ class Bot:
 
         self.ping_timer = RepeatedTimer(60, self.pong)
 
+    def _panic(self):
+        self.exit_server()
+        self.start()
+
     def start(self, safe=False):
         if safe:
             try:
@@ -150,7 +164,9 @@ class Bot:
                 self.connected_afer()
                 self.listen_forever()
             except Exception as e:
-                pass
+                self.send_text_thread(traceback.format_exc())
+                self.send_text_thread("Apparently this command is incorrect. If you can't fix it, don't use it again")
+                self.listen_forever()
         else:
             self.connect()
             self.connected_afer()
