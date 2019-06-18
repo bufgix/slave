@@ -36,6 +36,7 @@ BotV2.read_config_from_dict(config)
 BotV2.start()
 ```
 
+
 `config` şunları içermelidir
 
 | Key | Value |
