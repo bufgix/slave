@@ -11,6 +11,7 @@ bumpversion = "*"
 [packages]
 pyinstaller = "*"
 mss = "*"
+requests = "*"
 
 [requires]
 python_version = "3.7"
