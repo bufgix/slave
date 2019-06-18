@@ -19,7 +19,7 @@ setup(
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.7",
     ],
-    packages=["slave", "slave.lib"],
+    packages=["slave", "slave.lib", "slave.playground"],
     include_package_data=True,
     install_requires=["pyinstaller", "mss"],
 )
