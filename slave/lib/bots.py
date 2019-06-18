@@ -34,13 +34,14 @@ def sys_info(bot: Bot, args: List[str] = None):
 
 @BotBasic.register('help', help_text="Help text of command -- Usage: $help <cmd>")
 def helper(bot: Bot, args: List[str]):
-    cmd_dict = bot.COMMAND_SET.get(args[1], None)
-    if cmd_dict is not None:
-        bot.send_text(cmd_dict['help_text'])
-    elif args[1] == '/all':
+    if len(args) < 2:
         bot.send_command_help()
     else:
-        bot.send_text("Command not found")
+        cmd_dict = bot.COMMAND_SET.get(args[1], None)
+        if cmd_dict is not None:
+            bot.send_text(cmd_dict['help_text'])
+        else:
+            bot.send_text("Command not found")
 
 
 ## BotV2 Commands ##
