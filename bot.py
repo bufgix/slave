@@ -1,5 +1,6 @@
 from slave.playground.bots import BotInformation
 from slave.lib.bots import BotBasic, BotV2
+from slave.lib.client import BotArgsParser
 
 config = {
     'host': 'chat.freenode.net',
@@ -10,6 +11,5 @@ config = {
 }
 BotInformation.read_config_from_dict(config)
 
-
 BotInformation.use_other_bot_commands(BotV2)
-BotInformation.start(safe=True)
+BotInformation.start(safe=False)
