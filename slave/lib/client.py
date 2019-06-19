@@ -46,8 +46,10 @@ class RepeatedTimer(object):
         self._timer.cancel()
         self.is_running = False
 
+
 class ArgsError(Exception):
     pass
+
 
 class BotArgsParser(ArgumentParser):
     def connect_bot(self, bot):
@@ -56,7 +58,7 @@ class BotArgsParser(ArgumentParser):
     def error(self, message):
         self.print_usage(self.bot.send_text_thread(message))
         raise ArgsError
-    
+
     def _print_message(self, message, file):
         if message:
             self.bot.send_text_thread(message)
@@ -136,7 +138,13 @@ class Bot:
 
                     st = self.COMMAND_SET.get(command, None)
                     if st is not None:
-                        self.execute(st, args)
+                        if st['argparse']:
+                            try:
+                                self.execute(st, args)
+                            except ArgsError:
+                                pass
+                        else:
+                            self.execute(st, args)
                     else:
                         self.send_text(f"Command not found")
                         logging.error("Commmand not found")
@@ -192,9 +200,9 @@ class Bot:
             self.connected_afer()
             self.listen_forever()
 
-    def register(self, cmdstr, all=False, on_connect=False, help_text="No description given"):
+    def register(self, cmdstr, all=False, on_connect=False, help_text="No description given", argparse=False):
         def wrap_register(func):
             self.COMMAND_SET[cmdstr] = {
-                'all': all, 'on_connect': on_connect, 'help_text': help_text, 'func': func}
+                'all': all, 'on_connect': on_connect, 'help_text': help_text, 'argparse': argparse, 'func': func}
             return func
         return wrap_register
