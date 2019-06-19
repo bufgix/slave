@@ -1,6 +1,7 @@
 from typing import Any, List, Callable
 from threading import Timer, Thread
 from collections import OrderedDict
+from argparse import ArgumentParser
 from pathlib import Path
 import socket
 import re
@@ -45,6 +46,24 @@ class RepeatedTimer(object):
         self._timer.cancel()
         self.is_running = False
 
+class ArgsError(Exception):
+    pass
+
+class BotArgsParser(ArgumentParser):
+    def connect_bot(self, bot):
+        self.bot = bot
+
+    def error(self, message):
+        self.print_usage(self.bot.send_text_thread(message))
+        raise ArgsError
+    
+    def _print_message(self, message, file):
+        if message:
+            self.bot.send_text_thread(message)
+
+    def exit(self, status=0, message=None):
+        pass
+
 
 class Bot:
     sock: socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -63,7 +82,7 @@ class Bot:
         self.ping_timer: RepeatedTimer = None
         self.ROOT_PATH = Path("~").expanduser()
 
-    def use_other_bot_commands(self, other_bot:Any) -> None:
+    def use_other_bot_commands(self, other_bot: Any) -> None:
         self.COMMAND_SET.update(other_bot.COMMAND_SET)
 
     def read_config_from_dict(self, config: dict) -> None:
@@ -82,7 +101,7 @@ class Bot:
         for line in text.split('\n'):
             th = Thread(target=thread_send, args=(line,))
             th.start()
-        
+
         del th
 
     def send_text(self, text: str):
@@ -100,9 +119,9 @@ class Bot:
 
     def execute(self, func_dict, args: List[str]):
         if func_dict['all'] and args[0] == '/all':
-            func_dict['func'](bot=self, args=args)
+            func_dict['func'](bot=self, args=args[1:])
         if self.bot_id == args[0]:
-            func_dict['func'](bot=self, args=args)
+            func_dict['func'](bot=self, args=args[1:])
 
     def parse_command(self, raw_data: bytes):
         msg_match = re.match(RE_PARSE_PRIVMSG, raw_data)
@@ -165,7 +184,8 @@ class Bot:
                 self.listen_forever()
             except Exception as e:
                 self.send_text_thread(traceback.format_exc())
-                self.send_text_thread("Apparently this command is incorrect. If you can't fix it, don't use it again")
+                self.send_text_thread(
+                    "Apparently this command is incorrect. If you can't fix it, don't use it again")
                 self.listen_forever()
         else:
             self.connect()
