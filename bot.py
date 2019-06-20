@@ -1,6 +1,5 @@
+from slave.lib.bots import BotV2
 from slave.playground.bots import BotInformation
-from slave.lib.bots import BotBasic, BotV2
-from slave.lib.client import BotArgsParser
 
 config = {
     'host': 'chat.freenode.net',
@@ -9,7 +8,7 @@ config = {
     'boss_name': 'boss666',
     'bot_prefix': "SLAVEBOT"
 }
-BotInformation.read_config_from_dict(config)
 
-BotInformation.use_other_bot_commands(BotV2)
-BotInformation.start(safe=False)
+BotV2.read_config_from_dict(config)
+BotV2.use_other_bot_commands(BotInformation)
+BotV2.start()
