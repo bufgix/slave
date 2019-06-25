@@ -1,7 +1,7 @@
 from typing import Any, List, Callable
 from threading import Timer, Thread
 from collections import OrderedDict
-from argparse import ArgumentParser
+from argparse import ArgumentParser, HelpFormatter
 from pathlib import Path
 import socket
 import re
@@ -52,6 +52,9 @@ class ArgsError(Exception):
 
 
 class BotArgsParser(ArgumentParser):
+    def __init__(self, prog=None, usage=None, description=None, epilog=None, parents=[], formatter_class=HelpFormatter, prefix_chars='-', fromfile_prefix_chars=None, argument_default=None, conflict_handler='error', add_help=True, allow_abbrev=True):
+        super().__init__(prog=prog, usage=usage, description=description, epilog=epilog, parents=parents, formatter_class=formatter_class, prefix_chars=prefix_chars, fromfile_prefix_chars=fromfile_prefix_chars, argument_default=argument_default, conflict_handler=conflict_handler, add_help=add_help, allow_abbrev=allow_abbrev)
+    
     def connect_bot(self, bot):
         self.bot = bot
 
